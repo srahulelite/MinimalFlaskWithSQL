@@ -1,9 +1,13 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    return render_template("login.html", name="kk")
+@app.route('/', methods =["GET", "POST"])
+def login():
+    if request.method == "POST":
+       username = request.form.get("uname")
+       password = request.form.get("pwd")
+       return "Your name is "+username + password
+    return render_template("login.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
